@@ -1,0 +1,4 @@
+<button mat-raised-button color="primary" (click)="addRailingCode()">
+  New Railing
+</button>
+<app-railing *ngFor="let code of railingCodes" [code]="code"></app-railing>

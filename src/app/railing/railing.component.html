@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-content>
+    <mat-grid-list cols="2" rowHeight="150px">
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Railing Code" [(ngModel)]="code">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-geometry-visualizer [code]="code"></app-geometry-visualizer>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card-content>
+</mat-card>
