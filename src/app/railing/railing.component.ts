@@ -1,4 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component, EventEmitter, Input, OnInit, Output,
+  ViewChild,
+} from '@angular/core';
+import {GeometryVisualizerComponent} from '../geometry-visualizer/geometry-visualizer.component';
 
 @Component({
   selector: 'app-railing',
@@ -8,6 +12,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class RailingComponent implements OnInit {
   @Input() code: string;
   segments: number[][];
+  @ViewChild('geometryVisualizer') geometryVisualizer: GeometryVisualizerComponent;
 
   constructor() {
   }
@@ -29,5 +34,6 @@ export class RailingComponent implements OnInit {
   onValidInputCode(validCode: string) {
     this.code = validCode;
     this.segments = this.parseSegments(validCode);
+    this.geometryVisualizer.updateSegmentsVisualization(this.segments);
   }
 }

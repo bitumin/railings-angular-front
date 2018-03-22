@@ -1,4 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {
+  AfterViewInit, Component, EventEmitter, Input, OnInit,
+  Output,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { codeValidator } from './code-validator.directive';
 
@@ -7,7 +10,7 @@ import { codeValidator } from './code-validator.directive';
   templateUrl: './code-input.component.html',
   styleUrls: ['./code-input.component.css']
 })
-export class CodeInputComponent implements OnInit {
+export class CodeInputComponent implements OnInit, AfterViewInit {
   @Input() code: string;
   @Output() validatedCode: EventEmitter<string> = new EventEmitter<string>();
   codeInputForm: FormGroup;
@@ -22,9 +25,20 @@ export class CodeInputComponent implements OnInit {
     });
   }
 
-  onCodeChanged(code: string, valid: boolean) {
+  ngAfterViewInit(){
+    this.triggerInitialInputValidation();
+  }
+
+  private triggerInitialInputValidation() {
+    setTimeout(() => {
+      this.codeInputForm.controls.code.markAsTouched();
+      this.onCodeChanged(this.codeInputForm.value, this.codeInputForm.valid)
+    }, 0);
+  }
+
+  onCodeChanged(controls, valid: boolean) {
     if (valid) {
-      this.validatedCode.emit(code);
+      this.validatedCode.emit(controls.code);
     }
   }
 }

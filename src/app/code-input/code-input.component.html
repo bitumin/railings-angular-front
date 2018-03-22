@@ -1,6 +1,5 @@
 <form [formGroup]="codeInputForm" novalidate>
   <mat-form-field class="full-width">
-    <input matInput type="text" formControlName="code" placeholder="Railing Code" (ngModelChange)="onCodeChanged($event, codeInputForm.valid)">
+    <input matInput type="text" formControlName="code" placeholder="Railing Code" (keyup)="onCodeChanged(codeInputForm.value, codeInputForm.valid)">
   </mat-form-field>
-  <pre>{{codeInputForm.value | json}}</pre>
 </form>
