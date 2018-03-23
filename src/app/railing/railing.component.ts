@@ -1,8 +1,5 @@
-import {
-  Component, EventEmitter, Input, OnInit, Output,
-  ViewChild,
-} from '@angular/core';
-import {GeometryVisualizerComponent} from '../geometry-visualizer/geometry-visualizer.component';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {PaperScope, Path, Point, PointText, Project} from 'paper';
 
 @Component({
   selector: 'app-railing',
@@ -11,13 +8,17 @@ import {GeometryVisualizerComponent} from '../geometry-visualizer/geometry-visua
 })
 export class RailingComponent implements OnInit {
   @Input() code: string;
+  scope: PaperScope;
+  project: Project;
   segments: number[][];
-  @ViewChild('geometryVisualizer') geometryVisualizer: GeometryVisualizerComponent;
+  @ViewChild('canvasElement') canvasElement: ElementRef;
 
   constructor() {
   }
 
   ngOnInit() {
+    this.scope = new PaperScope();
+    this.project = new Project(this.canvasElement.nativeElement);
   }
 
   parseSegments(validCode) {
@@ -34,6 +35,24 @@ export class RailingComponent implements OnInit {
   onValidInputCode(validCode: string) {
     this.code = validCode;
     this.segments = this.parseSegments(validCode);
-    this.geometryVisualizer.updateSegmentsVisualization(this.segments);
+    this.updateSegmentsVisualization();
+  }
+
+  updateSegmentsVisualization() {
+    console.log('Draw ', this.segments);
+
+    this.project.activeLayer.removeChildren();
+
+    let from = new Point(20, 80);
+    let to = new Point(200, 100);
+    let currentPath = new Path.Line(from, to);
+    currentPath.strokeColor = 'black';
+    this.project.activeLayer.addChild(currentPath);
+
+    let text = new PointText(new Point(5, 20));
+    text.justification = 'left';
+    text.fillColor = 'black';
+    text.content = this.code;
+    this.project.activeLayer.addChild(text);
   }
 }

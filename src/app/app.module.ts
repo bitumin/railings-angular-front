@@ -14,7 +14,6 @@ import { MatInputModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { RailingsListComponent } from './railings-list/railings-list.component';
 import { RailingComponent } from './railing/railing.component';
-import { GeometryVisualizerComponent } from './geometry-visualizer/geometry-visualizer.component';
 import { CodeInputComponent } from './code-input/code-input.component';
 
 
@@ -23,7 +22,6 @@ import { CodeInputComponent } from './code-input/code-input.component';
     AppComponent,
     RailingsListComponent,
     RailingComponent,
-    GeometryVisualizerComponent,
     CodeInputComponent
   ],
   imports: [

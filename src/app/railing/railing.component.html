@@ -5,7 +5,7 @@
         <app-code-input [code]="code" (validatedCode)="onValidInputCode($event)"></app-code-input>
       </mat-grid-tile>
       <mat-grid-tile>
-        <app-geometry-visualizer #geometryVisualizer></app-geometry-visualizer>
+        <canvas #canvasElement width="300" height="150"></canvas>
       </mat-grid-tile>
     </mat-grid-list>
   </mat-card-content>
