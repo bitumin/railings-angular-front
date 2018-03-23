@@ -8,7 +8,8 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build.gp": "ng build --prod --build-optimizer --base-href https://bitumin-apps.github.io/railings/"
   },
   "private": true,
   "dependencies": {
