@@ -1,5 +1,38 @@
 <form [formGroup]="codeInputForm" novalidate>
   <mat-form-field class="full-width">
     <input matInput type="text" formControlName="code" placeholder="Railing Code" (keyup)="onCodeChanged(codeInputForm.value, codeInputForm.valid)">
+    <!--<div *ngIf="function() { console.log(codeInputForm.get('websiteUrl')); }">-->
+      <!--errors && codeInputForm.get('websiteUrl').dirty && codeInputForm.get('websiteUrl').errors.code-->
+    <!--</div>-->
+    <mat-error *ngIf="codeInputForm.controls['code'].hasError('codeStartsWithAQWHash')">
+      Code must start with AWQ#
+    </mat-error>
+    <mat-error *ngIf="codeInputForm.controls['code'].hasError('codeEndsWithHash')">
+      Code must end with #
+    </mat-error>
+    <mat-error *ngIf="codeInputForm.controls['code'].hasError('codeHasTwoDelimitingHashes') && codeInputForm.controls['code'].touched" class="alert alert-danger">
+      Code must have exactly two delimiter # characters
+    </mat-error>
+    <mat-error *ngIf="codeInputForm.controls['code'].hasError('codeHasValidSegments') && codeInputForm.controls['code'].touched" class="alert alert-danger">
+      Code has no valid segments (eg @45L150)
+    </mat-error>
+    <mat-error *ngIf="codeInputForm.controls['code'].hasError('segmentHasAngleAndLength') && codeInputForm.controls['code'].touched" class="alert alert-danger">
+      {{codeInputForm.controls['code'].getError('segmentHasAngleAndLength').segment}} segment must have a valid angle and length (eg @45L150)
+    </mat-error>
+    <mat-error *ngIf="codeInputForm.controls['code'].hasError('segmentHasIntegerAngle') && codeInputForm.controls['code'].touched" class="alert alert-danger">
+      {{codeInputForm.controls['code'].getError('segmentHasIntegerAngle').segment}} segment angle must be an integer between -165 and 165 degrees
+    </mat-error>
+    <mat-error *ngIf="codeInputForm.controls['code'].hasError('segmentAngleIsWithinLimits') && codeInputForm.controls['code'].touched" class="alert alert-danger">
+      {{codeInputForm.controls['code'].getError('segmentAngleIsWithinLimits').segment}} segment angle must be an integer between -165 and 165 degrees
+    </mat-error>
+    <mat-error *ngIf="codeInputForm.controls['code'].hasError('segmentHasIntegerLength') && codeInputForm.controls['code'].touched" class="alert alert-danger">
+      {{codeInputForm.controls['code'].getError('segmentHasIntegerLength').segment}} segment length must be a positive integer
+    </mat-error>
+    <mat-error *ngIf="codeInputForm.controls['code'].hasError('segmentLengthIsAPositiveInteger') && codeInputForm.controls['code'].touched" class="alert alert-danger">
+      {{codeInputForm.controls['code'].getError('segmentLengthIsAPositiveInteger').segment}} segment length must be a positive integer
+    </mat-error>
+    <mat-error *ngIf="codeInputForm.controls['code'].hasError('totalLengthWithinLimits') && codeInputForm.controls['code'].touched" class="alert alert-danger">
+      The sum of segments length must be less than 1200 cm
+    </mat-error>
   </mat-form-field>
 </form>

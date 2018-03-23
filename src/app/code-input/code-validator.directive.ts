@@ -107,7 +107,7 @@ export function codeValidator(minAngle: Number = -165,
     if (totalSegmentsLength >= maxTotalLength) {
       // The sum of all segments length must be less than maxTotalLength (cm)
       return {
-        segmentLengthIsAPositiveInteger: {
+        totalLengthWithinLimits: {
           parsedCode: code
         },
       };
